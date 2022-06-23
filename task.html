@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>project</title>
+    <link rel="stylesheet" href="css/task.css">
+
+</head>
+<body>
+    <div class="parent">
+        <form class="task-form" action="">
+            <input type="text" placeholder="filter">
+            <button>ADD TASK</button>
+        </form >
+         <div class="all-task">
+            <input type="text" placeholder="filter task">
+            <ul class="task-list">
+                <!-- <li class="task-item">
+                    <span>TASK1 <i>&times;</i></span>
+                    
+                </li>
+                <li class="task-item">
+                    <span>TASK2</span>
+                    <i>&times;</i>
+                </li> -->
+            </ul>
+
+            <button class="clear-task">CLEAR ALL TASK</button>
+         </div>
+    </div>
+    <script>
+        const parent =document.querySelector(".parent");
+        const taskForm =document.querySelector(".task-form");
+        const inputForm =document.querySelector(".parent input");
+        const button = document.querySelector(".task-form > button");
+        const allTask = document.querySelector(".all-task");
+        const taskList= document.querySelector(".task-list");
+        const filterTask= document.querySelector(".all-task input");
+        const clearTask= document.querySelector(".clear-task");
+      
+        
+        taskForm.addEventListener("submit" ,function(e){
+            e.preventDefault();
+            if(inputForm.value.trim()===''){
+                alert("Pleaze Enter Your Task")
+            }else{
+                const li = document.createElement("li");
+            li.className= "task-item";
+            const span = document.createElement("span");
+            li.appendChild(span);
+            span.appendChild(document.createTextNode(inputForm.value));
+            span.innerHTML = span.innerHTML + `<i class="delete">&times;</i>`;
+            taskList.appendChild(li);
+           inputForm.value = '';
+
+        //    const i = document.querySelector("span i");
+          
+        //    i.addEventListener("click",function(e){
+            
+        //     e.target.parentElement.parentElement.remove();
+            
+        //    })
+            }
+
+            taskList.addEventListener("click",function(e){
+                console.log(e.target);
+                if(e.target.classList.contains("delete")){
+                    e.target.parentElement.parentElement.remove();
+
+                }
+
+            })
+            
+        //    const i = document.querySelector("span i");
+          
+        //    i.addEventListener("click",function(e){
+            
+            
+        //    })
+           
+
+        
+             
+            
+        })
+        clearTask.addEventListener("click",function(){
+            // taskList.innerHTML="yuo are removed all";
+            // ta zamani kfirst child dare
+            while(taskList.firstChild){
+                taskList.removeChild(taskList.firstChild);
+
+
+            }
+        })
+        filterTask.addEventListener("keyup",function(){
+             // console.log(Array.from(taskList.children));
+  // console.log([...taskList.children]);
+  // console.log(document.querySelectorAll('.task-list li'));
+
+            const lis = Array.from(taskList.children);
+            console.log(lis)
+            lis.forEach(function(li){
+               if(li.textContent.startsWith(filterTask.value.trim())){
+                li.style.display = "block";
+
+               }else{
+                li.style.display = "none";
+               }
+            })
+
+        })
+
+        
+
+    </script>
+</body>
+</html>
